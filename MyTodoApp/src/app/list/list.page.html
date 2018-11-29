@@ -2,8 +2,14 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
+      <ion-title> List </ion-title>
     </ion-buttons>
-    <ion-title> List </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="add()" color="primary" fill="outline">
+        Add
+        <ion-icon slot="end" name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +17,11 @@
   <ion-list #slidingList>
     <ion-item-sliding *ngFor="let item of todoItems">
       <ion-item>
-            <ion-checkbox slot="start" [(ngModel)]="item.completed" (click)=clicked(item)></ion-checkbox>
+        <ion-checkbox
+          slot="start"
+          [(ngModel)]="item.completed"
+          (click)="clicked(item)"
+        ></ion-checkbox>
         <ion-label>
           <h2>{{ item.title }}</h2>
           <p>{{ item.note }}</p>
@@ -19,10 +29,20 @@
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option (click)="edit(item)">
-          <ion-icon slot="icon-only" name="create" role="img" aria-label="star"></ion-icon>
+          <ion-icon
+            slot="icon-only"
+            name="create"
+            role="img"
+            aria-label="star"
+          ></ion-icon>
         </ion-item-option>
         <ion-item-option color="danger" (click)="delete(item)">
-          <ion-icon slot="icon-only" name="trash" role="img" aria-label="trash"></ion-icon>
+          <ion-icon
+            slot="icon-only"
+            name="trash"
+            role="img"
+            aria-label="trash"
+          ></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>

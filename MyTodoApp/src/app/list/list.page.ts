@@ -21,14 +21,22 @@ export class ListPage implements OnInit {
     this.loadData();
   }
 
+  async add() {
+    const newItem: TodoItem = { title: 'New Item', note: '', completed: false };
+    await this.presentModalWith(newItem);
+    await this.listService.putItem(newItem);
+    this.loadData();
+  }
+
   async clicked(item: TodoItem) {
     await this.listService.updateItem(item);
     this.loadData();
   }
 
-  edit(item: TodoItem) {
-    this.presentModalWith(item);
-    this.slidingList.closeSlidingItems();
+  async edit(item: TodoItem) {
+    await this.slidingList.closeSlidingItems();
+    await this.presentModalWith(item);
+    this.listService.updateItem(item);
   }
 
   async delete(item: TodoItem) {

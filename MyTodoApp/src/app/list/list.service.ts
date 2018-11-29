@@ -17,7 +17,9 @@ export class ListService {
     }
 
     getItems(): Promise<TodoItem[]> {
-        return Promise.resolve(this.items);
+        // Return a copy
+        const itemsCopy = [].concat(...this.items);
+        return Promise.resolve(itemsCopy);
     }
 
     putItem(item: TodoItem): Promise<boolean> {
