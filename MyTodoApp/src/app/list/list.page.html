@@ -8,20 +8,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list #slidingList>
     <ion-item-sliding *ngFor="let item of todoItems">
       <ion-item>
-            <ion-checkbox slot="start" [(ngModel)]="item.completed"></ion-checkbox>
+            <ion-checkbox slot="start" [(ngModel)]="item.completed" (click)=clicked(item)></ion-checkbox>
         <ion-label>
           <h2>{{ item.title }}</h2>
           <p>{{ item.note }}</p>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option onclick="edit(item)">
+        <ion-item-option (click)="edit(item)">
           <ion-icon slot="icon-only" name="create" role="img" aria-label="star"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger" onclick="delete(item)">
+        <ion-item-option color="danger" (click)="delete(item)">
           <ion-icon slot="icon-only" name="trash" role="img" aria-label="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>

@@ -1,9 +1,7 @@
-import { ListPage } from './list.page';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: ListPage
+  providedIn: 'root'
 })
 export class ListService {
 
@@ -18,19 +16,25 @@ export class ListService {
         ];
     }
 
-    getItems(): Observable<TodoItem[]> {
-        return of(this.items);
+    getItems(): Promise<TodoItem[]> {
+        return Promise.resolve(this.items);
     }
 
-    addItem(item: TodoItem): Observable<boolean> {
+    putItem(item: TodoItem): Promise<boolean> {
         this.items.push(item);
-        return of(true);
+        return Promise.resolve(true);
     }
 
-    deleteItem(item: TodoItem): Observable<boolean> {
+    deleteItem(item: TodoItem): Promise<boolean> {
         const index = this.items.indexOf(item);
-        this.items.slice(index, index + 1);
-        return of(true);
+        this.items.splice(index, 1);
+        return Promise.resolve(true);
+    }
+
+    updateItem(item: TodoItem): Promise<boolean> {
+        const index = this.items.indexOf(item);
+        this.items[index] = item;
+        return Promise.resolve(true);
     }
 }
 
