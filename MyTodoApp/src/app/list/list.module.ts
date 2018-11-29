@@ -5,6 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { ListPage } from './list.page';
+import { ItemDetailPage } from './item-detail/item-detail.page';
+import { ItemDetailPageModule } from './item-detail/item-detail.module';
 
 @NgModule({
   imports: [
@@ -16,7 +18,8 @@ import { ListPage } from './list.page';
         path: '',
         component: ListPage
       }
-    ])
+    ]),
+    ItemDetailPageModule
   ],
   declarations: [ListPage]
 })

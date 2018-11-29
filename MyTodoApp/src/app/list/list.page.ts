@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TodoItem, ListService } from './list.service';
 import { List } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { ItemDetailPage } from './item-detail/item-detail.page';
 
 @Component({
   selector: 'app-list',
@@ -13,7 +15,7 @@ export class ListPage implements OnInit {
 
   public todoItems: TodoItem[] = [];
 
-  constructor(private listService: ListService) {}
+  constructor(private listService: ListService, public modalController: ModalController) {}
 
   ngOnInit() {
     this.loadData();
@@ -25,7 +27,8 @@ export class ListPage implements OnInit {
   }
 
   edit(item: TodoItem) {
-    // TODO: open
+    this.presentModalWith(item);
+    this.slidingList.closeSlidingItems();
   }
 
   async delete(item: TodoItem) {
@@ -37,6 +40,14 @@ export class ListPage implements OnInit {
 
   private async loadData() {
     this.todoItems = await this.listService.getItems();
+  }
+
+  private async presentModalWith(item: TodoItem) {
+    const modal = await this.modalController.create({
+      component: ItemDetailPage,
+      componentProps: { item: item }
+    });
+    return await modal.present();
   }
   // add back when alpha.4 is out
   // navigate(item) {
