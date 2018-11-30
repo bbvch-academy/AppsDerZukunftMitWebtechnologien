@@ -5,10 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class ListService {
 
-    private items: TodoItem[];
+    private data: TodoItem[];
 
     constructor() {
-        this.items = [
+        this.data = [
             { title: 'Buy bread', note: 'Lorem ipsum dolor', completed: false },
             { title: 'Call auntie', note: 'Dolores et ea rebum.', completed: false },
             { title: 'Watch "The Godfather"', note: 'Justo duo dolores et ea rebum', completed: false },
@@ -18,25 +18,13 @@ export class ListService {
 
     getItems(): Promise<TodoItem[]> {
         // Return a copy
-        const itemsCopy = [].concat(...this.items);
-        return Promise.resolve(itemsCopy);
+        return Promise.resolve(this.data.slice());
     }
 
-    putItem(item: TodoItem): Promise<boolean> {
-        this.items.push(item);
-        return Promise.resolve(true);
-    }
-
-    deleteItem(item: TodoItem): Promise<boolean> {
-        const index = this.items.indexOf(item);
-        this.items.splice(index, 1);
-        return Promise.resolve(true);
-    }
-
-    updateItem(item: TodoItem): Promise<boolean> {
-        const index = this.items.indexOf(item);
-        this.items[index] = item;
-        return Promise.resolve(true);
+    saveItems(newItems: TodoItem[]) {
+        // Make a copy
+        this.data = newItems.slice();
+        console.log('saved');
     }
 }
 

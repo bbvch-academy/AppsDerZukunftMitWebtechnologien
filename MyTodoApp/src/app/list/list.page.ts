@@ -24,26 +24,26 @@ export class ListPage implements OnInit {
   async add() {
     const newItem: TodoItem = { title: 'New Item', note: '', completed: false };
     await this.presentModalWith(newItem);
-    await this.listService.putItem(newItem);
-    this.loadData();
+    this.todoItems.push(newItem);
+    this.listService.saveItems(this.todoItems);
   }
 
   async clicked(item: TodoItem) {
-    await this.listService.updateItem(item);
-    this.loadData();
+    this.listService.saveItems(this.todoItems);
   }
 
   async edit(item: TodoItem) {
     await this.slidingList.closeSlidingItems();
     await this.presentModalWith(item);
-    this.listService.updateItem(item);
+    this.listService.saveItems(this.todoItems);
   }
 
   async delete(item: TodoItem) {
     // workaround
     await this.slidingList.closeSlidingItems();
-    await this.listService.deleteItem(item);
-    this.loadData();
+    const index = this.todoItems.indexOf(item);
+    this.todoItems.splice(index, 1);
+    this.listService.saveItems(this.todoItems);
   }
 
   private async loadData() {
@@ -55,10 +55,8 @@ export class ListPage implements OnInit {
       component: ItemDetailPage,
       componentProps: { item: item }
     });
-    return await modal.present();
+    await modal.present();
+    return modal.onDidDismiss();
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
+
 }
