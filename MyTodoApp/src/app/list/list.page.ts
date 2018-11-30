@@ -28,7 +28,8 @@ export class ListPage implements OnInit {
     this.listService.saveItems(this.todoItems);
   }
 
-  async clicked(item: TodoItem) {
+  onCheckboxChange(item: TodoItem) {
+      item.completed = !item.completed;
     this.listService.saveItems(this.todoItems);
   }
 

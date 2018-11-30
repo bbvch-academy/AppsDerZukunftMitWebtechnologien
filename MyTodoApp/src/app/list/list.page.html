@@ -19,8 +19,8 @@
       <ion-item>
         <ion-checkbox
           slot="start"
-          [(ngModel)]="item.completed"
-          (click)="clicked(item)"
+          [checked]="item.completed"
+          (ionChange)="onCheckboxChange(item)"
         ></ion-checkbox>
         <ion-label>
           <h2>{{ item.title }}</h2>
